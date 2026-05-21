@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shopping Home</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: #f5f5f5;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #2874f0;
+            padding: 10px 20px;
+            color: white;
+        }
+
+        .search-box input {
+            padding: 8px;
+            width: 250px;
+        }
+
+        .icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .banner {
+            background: url('https://via.placeholder.com/1200x300') no-repeat center;
+            background-size: cover;
+            height: 200px;
+            margin: 10px;
+            border-radius: 10px;
+        }
+
+        /* Categories */
+        .categories {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .card {
+            width: 150px;
+            height: 180px;
+            background: white;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 0 8px gray;
+            cursor: pointer;
+        }
+
+        .card img {
+            width: 100%;
+            height: 120px;
+            border-radius: 10px 10px 0 0;
+        }
+
+        /* Products */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            padding: 15px;
+        }
+
+        .product {
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 0 5px gray;
+        }
+
+        .product img {
+            width: 100%;
+            height: 140px;
+        }
+
+        .price {
+            color: green;
+            font-weight: bold;
+        }
+
+        button {
+            padding: 8px;
+            background: #ec0808;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+    <div>MyShop</div>
+    <div class="search-box">
+        <input type="text" placeholder="Search...">
+    </div>
+    <div class="icons">
+        <div>👤</div>
+        <div>🛒</div>
+    </div>
+</div>
+
+<div class="banner"></div>
+
+<!-- Categories -->
+<div class="categories">
+    <div class="card" onclick="showProducts('men')">
+        <img src="https://via.placeholder.com/150">
+        <h4>Men</h4>
+    </div>
+
+    <div class="card" onclick="showProducts('women')">
+        <img src="https://via.placeholder.com/150">
+        <h4>Women</h4>
+    </div>
+
+    <div class="card" onclick="showProducts('kids')">
+        <img src="https://via.placeholder.com/150">
+        <h4>Kids</h4>
+    </div>
+</div>
+
+<!-- Product List -->
+<div class="products" id="productList"></div>
+
+<script>
+    const products = {
+        men: [
+            {name: "Shirt",  img: "https://via.placeholder.com/200"},
+            {name: "Jeans",  img: "https://via.placeholder.com/200"},
+            {name: "Inners", img: ""}
+        ],
+        women: [
+            {name: "Tops",  img: "https://via.placeholder.com/200"},
+            {name: "Kurtis",  img: "https://via.placeholder.com/200"},
+            { name: "Hanbags",img:" "},
+            {name:"makeup",img:""}
+        ],
+        kids: [
+            {name: "Kids Shirt",img: "https://via.placeholder.com/200"},
+            {name: "Toys",  img: "https://via.placeholder.com/200"}
+        ]
+    };
+
+    function showProducts(category) {
+        let list = document.getElementById("productList");
+        list.innerHTML = "";
+
+        products[category].forEach(item => {
+            list.innerHTML += `
+                <div class="product">
+                    <img src="${item.img}">
+                    <h4>${item.name}</h4>
+                   
+                    <button onclick="select('${item.name}')">select</button>
+                </div>
+            `;
+        });
+    }
+
+    function addToCart(product) {
+        alert(product + " added to cart!");
+    }
+</script>
+
+</body>
+</html>

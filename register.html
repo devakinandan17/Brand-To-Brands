@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+
+    <!-- Google Sign-In -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 320px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: green;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: darkgreen;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h2>brand to brands</h2>
+
+    <input type="text" id="name" placeholder="Full Name">
+    <input type="text" id="email" placeholder="Email ID">
+    <input type="text" id="phone" placeholder="Phone Number">
+    <input type="password" id="password" placeholder="Password">
+
+    <div class="error" id="error"></div>
+
+    <button onclick="register()">Register</button>
+
+    <div class="divider">OR</div>
+
+    <!-- Google Sign-In Button -->
+    <div id="g_id_onload"
+         data-client_id="YOUR_GOOGLE_CLIENT_ID"
+         data-callback="handleCredentialResponse">
+    </div>
+
+    <div class="g_id_signin"
+         data-type="standard">
+    </div>
+
+</div>
+
+<script>
+function register() {
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let phone = document.getElementById("phone").value;
+    let password = document.getElementById("password").value;
+    let error = document.getElementById("error");
+
+    let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+    let phonePattern = /^[0-9]{10}$/;
+
+    if (!name || !email || !phone || !password) {
+        error.innerText = "All fields are required!";
+        return;
+    }
+
+    if (!emailPattern.test(email)) {
+        error.innerText = "Invalid email format!";
+        return;
+    }
+
+    if (!phonePattern.test(phone)) {
+        error.innerText = "Enter valid 10-digit phone number!";
+        return;
+    }
+
+    if (password.length < 4) {
+        error.innerText = "Password must be at least 4 characters!";
+        return;
+    }
+
+    alert("Registration Successful!");
+}
+
+// Google login response
+function handleCredentialResponse(response) {
+    console.log("Google Token: " + response.credential);
+    alert("Google Sign-Up Successful!");
+}
+</script>
+
+</body>
+</html>

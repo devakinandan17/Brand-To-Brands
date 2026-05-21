@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile Setup</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f3f3f3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: white;
+            padding: 25px;
+            width: 350px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px gray;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .location-box {
+            display: flex;
+            gap: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #ff6f00;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .loc-btn {
+            width: 40%;
+            background: #007bff;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Create Profile</h2>
+
+    <input type="text" id="name" placeholder="Full Name">
+    <input type="email" id="email" placeholder="Email ID">
+    <input type="text" id="phone" placeholder="Mobile Number">
+    <input type="text" id="address" placeholder="house number">
+
+    <select id="gender">
+        <option value="">Select Gender</option>
+        <option>Male</option>
+        <option>Female</option>
+        <option>Other</option>
+    </select>
+
+    <!-- Location Setup -->
+    <div class="location-box">
+        <input type="text" id="location" placeholder="Your Location" readonly>
+        <button class="loc-btn" onclick="getLocation()">use live location</button>
+    </div>
+
+    <button onclick="confirm()">confirm</button>
+</div>
+
+<script>
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                let lat = position.coords.latitude;
+                let lon = position.coords.longitude;
+
+                document.getElementById("location").value =
+                    "Lat: " + lat + ", Lon: " + lon;
+
+                // Save location
+                localStorage.setItem("userLocation", lat + "," + lon);
+            }, function() {
+                alert("Location access denied");
+            });
+        } else {
+            alert("Geolocation not supported");
+        }
+    }
+
+    function saveProfile() {
+        let name = document.getElementById("name").value;
+        let email = document.getElementById("email").value;
+        let phone = document.getElementById("phone").value;
+
+        if (name === "" || email === "" || phone === "") {
+            alert("Please fill all required fields");
+            return;
+        }
+
+        alert("✅ Profile Created Successfully!");
+
+        localStorage.setItem("userName", name);
+        localStorage.setItem("userEmail", email);
+        localStorage.setItem("userPhone", phone);
+    }
+</script>
+
+</body>
+</html>
